@@ -398,7 +398,7 @@ function JingDongBean(s) {
               } else if (data.match(/人数较多|S101/)) {
                 merge.JDBean.notify = "京东商城-京豆: 失败, 签到人数较多 ⚠️"
               } else {
-                merge.JDBean.notify = "京东商城-京豆: 失败, 原因: 未知 ⚠️"
+                merge.JDBean.notify = "京东商城-京豆: 失败 ️" + consoleError(data);
               }
             }
           }
@@ -760,7 +760,7 @@ function JDUserSignPre2(s, key, title, acData) {
               merge[key].fail = 1
             }
           } else {
-            merge[key].notify = `${title}: 失败, ${!data ? `需要手动执行` : `不含活动数据`} ⚠️`
+            merge[key].notify = `${title}: 失败, ${!data ? `需要手动执行` : `不含活动数据`} ⚠️ \n data is ${data}`
             merge[key].fail = 1
           }
         }
@@ -1348,6 +1348,14 @@ function JingDongStore(s) {
     }, s)
     if (out) setTimeout(resolve, out + s)
   });
+}
+
+function consoleError(data) {
+  try {
+    return data + `原因：未知⚠️`
+  } catch (e) {
+    return '原因： 未知⚠️'
+  }
 }
 
 function JDSecKilling(s) { //领券中心
